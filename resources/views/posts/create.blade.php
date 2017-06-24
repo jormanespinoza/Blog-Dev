@@ -16,7 +16,7 @@
                 {{ Form::text('title', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                 {{ Form::label('body', 'Body:') }}
                 {{ Form::textarea('body', null, array('class' => 'form-control', 'required' => '')) }}
-                {{ Form::submit('Create Post', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
+                {{ Form::submit('Create Post', array('class' => 'btn btn-success btn-lg btn-block btn-submit-spacing')) }}
             {!! Form::close() !!}
         </div>
     </div>
