@@ -15,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'asc')->paginate(5);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
         return view('posts.index')->with('posts', $posts);
     }
 
@@ -51,7 +51,7 @@ class PostsController extends Controller
 
         // Redirect to another page
         Session::flash('success', 'The blog post was successfully saved.');
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.index');
     }
 
     /**

@@ -29,7 +29,7 @@
                     @foreach($posts as $post)
                         <tr>
                             <th>{{ $post->id }}</th>
-                            <td>{{ substr($post->title, 0, 25) }} {{ strlen($post->body) > 25 ? '...' : '' }}</td>
+                            <td>{{ substr($post->title, 0, 25) }} {{ strlen($post->title) > 25 ? '...' : '' }}</td>
                             <td>{{ substr($post->body, 0, 25) }} {{ strlen($post->body) > 25 ? '...' : '' }}</td>
                             <td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
                             <td>{{ date('M j, Y', strtotime($post->updated_at)) }}</td>
@@ -38,10 +38,12 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>                
+                </tbody>
             </table>
             {{-- Pagination --}}
-            {{ $posts->links() }}
+            <div class="text-center">
+                {!! $posts->links() !!}
+            </div>
         </div>
     </div>
 @endsection
