@@ -38,8 +38,10 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
+                </tbody>                
             </table>
+            {{-- Pagination --}}
+            {{ $posts->links() }}
         </div>
     </div>
 @endsection
