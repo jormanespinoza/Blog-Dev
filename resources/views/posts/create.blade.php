@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('body', 'Body:') }}
-                    {{ Form::textarea('body', null, array('class' => 'form-control', 'required' => '')) }}
+                    {{ Form::textarea('body', null, array('id' => 'article-ckeditor', 'class' => 'form-control', 'required' => '')) }}
                 </div>
                 {{ Form::submit('Create Post', array('class' => 'btn btn-success btn-lg btn-block')) }}
             {!! Form::close() !!}
@@ -32,4 +32,8 @@
 
 @section('scripts')
     {!! Html::script('js/parsley.min.js') !!}
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'article-ckeditor' );
+    </script>
 @endsection

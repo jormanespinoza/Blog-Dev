@@ -17,22 +17,22 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('body', 'Body:')}}
-                    {{ Form::textarea('body', null, ['class' => 'form-control']) }}
+                    {{ Form::textarea('body', null, ['id' => 'article-ckeditor', 'class' => 'form-control']) }}
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="well">
-                    <dl class="dl-horizontal">
-                        <label>Url:</label>
-                        <span><a href="{{ url($post->slug) }}">{{ url($post->slug) }}</a></span>
+                     <dl class="dl-vertical">
+                        <dt>Url:</dt>
+                        <dd><a href="{{ route('blog.single', $post->slug) }}">{{ route('blog.single', $post->slug) }}</a></dd>
                     </dl>
-                    <dl class="dl-horizontal">
-                        <label>Created At:</label>
-                        <span>{{ date('M j, Y h:ia', strtotime($post->created_at)) }}</span>
+                    <dl class="dl-vertical">
+                        <dt>Created At:</dt>
+                        <dd>{{ date('M j, Y h:ia', strtotime($post->created_at)) }}</dd>
                     </dl>
-                    <dl class="dl-horizontal">
-                        <label>Last Updated:</label>
-                        <span>{{ date('M j, Y h:ia', strtotime($post->updated_at)) }}</span>
+                    <dl class="dl-vertical">
+                        <dt>Last Updated:</dt>
+                        <dd>{{ date('M j, Y h:ia', strtotime($post->updated_at)) }}</dd>
                     </dl>
                     <hr>
                     <div class="row">
@@ -47,4 +47,11 @@
             </div>
         {!! Form::close() !!}
     </div>
+@endsection
+
+@section('scripts')
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'article-ckeditor' );
+    </script>
 @endsection

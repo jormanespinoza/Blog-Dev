@@ -6,21 +6,21 @@
     <div class="row">
         <div class="col-md-8">
             <h1>{{ $post->title }}</h1>
-            <p class="lead">{{ $post->body }}</p>
+            <p class="lead">{!! $post->body !!}</p>
         </div>
         <div class="col-md-4">
             <div class="well">
-                <dl class="dl-horizontal">
-                    <label>Url:</label>
-                    <span><a href="{{ url($post->slug) }}">{{ url($post->slug) }}</a></span>
+                <dl class="dl-vertical">
+                    <dt>Url:</dt>
+                    <dd><a href="{{ route('blog.single', $post->slug) }}">{{ route('blog.single', $post->slug) }}</a></dd>
                 </dl>
-                <dl class="dl-horizontal">
-                    <label>Created At:</label>
-                    <span>{{ date('M j, Y h:ia', strtotime($post->created_at)) }}</span>
+                <dl class="dl-vertical">
+                    <dt>Created At:</dt>
+                    <dd>{{ date('M j, Y h:ia', strtotime($post->created_at)) }}</dd>
                 </dl>
-                <dl class="dl-horizontal">
-                    <label>Last Updated:</label>
-                    <span>{{ date('M j, Y h:ia', strtotime($post->updated_at)) }}</span>
+                <dl class="dl-vertical">
+                    <dt>Last Updated:</dt>
+                    <dd>{{ date('M j, Y h:ia', strtotime($post->updated_at)) }}</dd>
                 </dl>
                 <hr>
                 <div class="row">
@@ -42,10 +42,6 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    {!! Html::script('js/parsley.min.js') !!}
 @endsection
 
 @section('scripts')
