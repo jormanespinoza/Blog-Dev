@@ -7,20 +7,32 @@
         {!! Form::model($post, ['route' => ['posts.update', $post->id]]) !!}
             {{ Form::hidden('_method', 'PUT') }}
             <div class="col-md-8">
-                {{ Form::label('title', 'Title:' )}}
-                {{ Form::text('title', null, ['class' => 'form-control input-lg']) }}
-                {{ Form::label('body', 'Body:', ['class' => 'form-spacing-top'])}}
-                {{ Form::textarea('body', null, ['class' => 'form-control']) }}
+                <div class="form-group">
+                    {{ Form::label('title', 'Title:' )}}
+                    {{ Form::text('title', null, ['class' => 'form-control input-lg']) }}
+                </div>
+                <div class="form-group">
+                    {{ Form::label('slug', 'Slug:') }}
+                    {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '', 'minlength' => '5','maxlength' => '255')) }}
+                </div>
+                <div class="form-group">
+                    {{ Form::label('body', 'Body:')}}
+                    {{ Form::textarea('body', null, ['class' => 'form-control']) }}
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="well">
                     <dl class="dl-horizontal">
-                        <dt>Created At:</dt>
-                        <dd>{{ date('M j, Y h:ia', strtotime($post->created_at)) }}</dd>
+                        <label>Url:</label>
+                        <span><a href="{{ url($post->slug) }}">{{ url($post->slug) }}</a></span>
                     </dl>
                     <dl class="dl-horizontal">
-                        <dt>Last Updated:</dt>
-                        <dd>{{ date('M j, Y h:ia', strtotime($post->updated_at)) }}</dd>
+                        <label>Created At:</label>
+                        <span>{{ date('M j, Y h:ia', strtotime($post->created_at)) }}</span>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <label>Last Updated:</label>
+                        <span>{{ date('M j, Y h:ia', strtotime($post->updated_at)) }}</span>
                     </dl>
                     <hr>
                     <div class="row">
