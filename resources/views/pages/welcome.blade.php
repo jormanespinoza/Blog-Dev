@@ -12,49 +12,22 @@
     <div class="row">
         <!-- Main -->
         <div class="col-md-8">
-            <div class="post">
-                <h3>Post Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis officiis quis ratione quidem eligendi error autem sit enim pariatur, minus itaque, eveniet rem magnam architecto dolores commodi praesentium laborum amet?</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Read More</a>
-                </p>
-            </div>
-
-            <hr>
-
-            <div class="post">
-                <h3>Post Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis officiis quis ratione quidem eligendi error autem sit enim pariatur, minus itaque, eveniet rem magnam architecto dolores commodi praesentium laborum amet?</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Read More</a>
-                </p>
-            </div>
-
-            <hr>
-
-            <div class="post">
-                <h3>Post Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis officiis quis ratione quidem eligendi error autem sit enim pariatur, minus itaque, eveniet rem magnam architecto dolores commodi praesentium laborum amet?</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Read More</a>
-                </p>
-            </div>
-
-            <hr>
-
-            <div class="post">
-                <h3>Post Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis officiis quis ratione quidem eligendi error autem sit enim pariatur, minus itaque, eveniet rem magnam architecto dolores commodi praesentium laborum amet?</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Read More</a>
-                </p>
-            </div>
+            @foreach($posts as $post)
+                <div class="post">
+                    <h3>{{ substr($post->title, 0,50 ) }} {{ strlen($post->title) > 50 ? '...' : '' }}</h3>
+                    <p>{{ substr($post->body, 0, 300) }} {{ strlen($post->body) > 300 ? '...' : '' }}</p>
+                    <p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </p>
+                </div>
+                <hr>
+            @endforeach
         </div>
 
         <!-- Sidebar -->
         <div class="col-md-3 col-md-offset-1">
             <h3>Sidebar</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique asperiores dolorum laudantium sed velit assumenda sapiente. Laborum placeat ducimus autem architecto perspiciatis! Exercitationem earum eos deserunt voluptas sed neque veritatis!</p>
+            <p></p>
         </div>
     </div>
 @endsection
