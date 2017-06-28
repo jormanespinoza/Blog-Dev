@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
     <head>
         @include('partials._head')
     </head>
 
     <body>
-        @include('partials._navbar')
+        <div id="app">
+            @include('partials._navbar')
 
-        <div class="container">
-            @include('partials._messages')
-            @yield('content')
-            @include('partials._footer')
+            <div class="container">
+                @include('partials._messages')
+                @yield('content')
+                @include('partials._footer')
+            </div>
+
+            @include('partials._javascripts')
         </div>
-
-        @include('partials._javascripts')
-
         @yield('scripts')
     </body>
 
