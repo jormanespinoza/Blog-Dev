@@ -5,7 +5,7 @@
         <h1>Welcome to my Blog!</h1>
         <p>Thank you so much for visiting. This is my test website built Laravel. Please read my popular post!</p>
         <p>
-            <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">Latest Post</a>
+            <a class="btn btn-lg btn-primary" href="{{ route('blog.single', $latest_post->slug ) }}" role="button">Latest Post</a>
         </p>
     </div>
 

@@ -10,7 +10,8 @@ class PagesController extends Controller
     public function getIndex()
     {
         $posts = Post::orderBy('created_at', 'desc')->limit(4)->get();
-        return view('pages.welcome')->with('posts', $posts);
+        $latest_post = $posts->first();
+        return view('pages.welcome')->with('posts', $posts)->with('latest_post', $latest_post);
     }
 
     public function getAbout()
