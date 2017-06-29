@@ -24,7 +24,12 @@
                             <td>{{ $category->name }}</td>
                             <td>
                                 <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                            <td>
+                                {!! Form::open(['route' => ['categories.destroy', $category->id]]) !!}
+                                    {{ Form::hidden('_method', 'DELETE') }}
+                                    {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
+                                {!! Form::close() !!}
                             </td>
                         </tr>
                     @endforeach
@@ -38,12 +43,12 @@
         <div class="col-md-3">
             <div class="well">
                 {!! Form::open(['route' => 'categories.store', 'data-parsley-validate' => '']) !!}
-                <h3>New Category</h3>
-                <div class="form-group">
-                    {{ Form::label('name', 'Name:') }}
-                    {{ Form::text('name', null, ['class' => 'form-control', 'required' => '', 'maxlength' => '255']) }}
-                </div>
-            {{ form::submit('Create', ['class' => 'btn btn-primary btn-block']) }}
+                    <h3>New Category</h3>
+                    <div class="form-group">
+                        {{ Form::label('name', 'Name:') }}
+                        {{ Form::text('name', null, ['class' => 'form-control', 'required' => '', 'maxlength' => '255']) }}
+                    </div>
+                    {{ form::submit('Create', ['class' => 'btn btn-primary btn-block']) }}
                 {!! Form::close()!!}
             </div>
         </div>
