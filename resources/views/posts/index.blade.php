@@ -16,7 +16,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <th>#</th>
                     <th>Title</th>

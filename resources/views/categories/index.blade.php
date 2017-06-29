@@ -7,13 +7,14 @@
         <div class="col col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Categoties
+                    Categories
                 </div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,10 +22,17 @@
                         <tr>
                             <th>{{ $category->id }}</th>
                             <td>{{ $category->name }}</td>
+                            <td>
+                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="text-center">
+                {!! $categories->links() !!}
             </div>
         </div>
         <div class="col-md-3">

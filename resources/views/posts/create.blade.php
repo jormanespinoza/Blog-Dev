@@ -21,6 +21,14 @@
                     {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '', 'minlength' => '5','maxlength' => '255')) }}
                 </div>
                 <div class="form-group">
+                    {{ Form::label('category_id', 'Category:') }}
+                    <select name="category_id" class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{ $category-> id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     {{ Form::label('body', 'Body:') }}
                     {{ Form::textarea('body', null, array('id' => 'article-ckeditor', 'class' => 'form-control', 'required' => '')) }}
                 </div>

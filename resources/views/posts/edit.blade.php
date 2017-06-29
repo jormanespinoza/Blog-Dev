@@ -16,6 +16,10 @@
                     {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '', 'minlength' => '5','maxlength' => '255')) }}
                 </div>
                 <div class="form-group">
+                    {{ Form::label('category_id', 'Category:') }}
+                    {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
+                </div>
+                <div class="form-group">
                     {{ Form::label('body', 'Body:')}}
                     {{ Form::textarea('body', null, ['id' => 'article-ckeditor', 'class' => 'form-control']) }}
                 </div>
@@ -25,6 +29,10 @@
                      <dl class="dl-vertical">
                         <dt>Url:</dt>
                         <dd><a href="{{ route('blog.single', $post->slug) }}">{{ route('blog.single', $post->slug) }}</a></dd>
+                    </dl>
+                    <dl class="dl-vertical">
+                        <dt>Category:</dt>
+                        <dd>{{ $post->category->name }}</dd>
                     </dl>
                     <dl class="dl-vertical">
                         <dt>Created At:</dt>

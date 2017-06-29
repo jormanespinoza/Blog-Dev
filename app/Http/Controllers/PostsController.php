@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 use Session;
 
 class PostsController extends Controller
@@ -36,7 +37,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::orderBy('name', 'asc')->get();
+        return view('posts.create')->with('categories', $categories);
     }
 
     /**
@@ -58,6 +60,7 @@ class PostsController extends Controller
         $post = new Post;
         $post->title = $request->title;
         $post->slug = $request->slug;
+        $post->category_id = $request->category_id;
         $post->body = $request->body;
         $post->save();
 
@@ -87,7 +90,14 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('posts.edit')->with('post', $post);
+        $categories = Category::orderBy('name', 'asc')->get();
+        $select_categories = [];
+        foreach($categories as $category) {
+            $select_categories[$category->id] = $category->name;
+        }
+        return view('posts.edit')
+            ->with('post', $post)
+            ->with('categories', $select_categories);
     }
 
     /**
@@ -117,6 +127,7 @@ class PostsController extends Controller
         // Store the data
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
+        $post->category_id = $request->input('category_id');
         $post->body = $request->input('body');
         $post->save();
 

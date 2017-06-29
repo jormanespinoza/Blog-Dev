@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id', 'asc')->get();
+        $categories = Category::orderBy('id', 'asc')->paginate(10);
         return view('categories.index')->with('categories', $categories);
     }
 
@@ -50,17 +50,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -68,7 +57,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('categories.edit')->with('category', $category);
     }
 
     /**
@@ -80,7 +70,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255'
+        ]);
+
+        $category = Category::find($id);
+        $category->name = $request->input('name');
+        $category->save();
+
+        Session::flash('success', 'The category has been updated');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -91,6 +90,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        // Redirect with flash data to posts.show
+        Session::flash('success', 'The category was successfully deleted.');
+        return redirect()->route('categories.index');
     }
 }
