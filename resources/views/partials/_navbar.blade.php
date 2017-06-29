@@ -35,6 +35,7 @@
                         <ul class="dropdown-menu" role="">
                             <li><a href="{{ route('posts.index')}}">Posts</a></li>
                             <li><a href="{{ route('categories.index') }}">Categories</a></li>
+                            <li><a href="{{ route('tags.index') }}">Tags</a></li>
                             <li role="separator" class="divider"></li>
                             <!-- <li class="dropdown-header">Nav header</li> -->
                             <li>

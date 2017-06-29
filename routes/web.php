@@ -26,6 +26,8 @@ Route::resource('/posts', 'PostsController');
 
 Route::resource('categories', 'CategoryController', ['except' => ['create', 'show']]);
 
+Route::resource('tags', 'TagController', ['except' => 'create']);
+
 // Authentication Routes
 
 Auth::routes();
