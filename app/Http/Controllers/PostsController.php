@@ -25,7 +25,7 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
         return view('posts.index')->with('posts', $posts);
     }
