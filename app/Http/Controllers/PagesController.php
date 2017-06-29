@@ -11,7 +11,9 @@ class PagesController extends Controller
     {
         $posts = Post::orderBy('created_at', 'desc')->limit(4)->get();
         $latest_post = $posts->first();
-        return view('pages.welcome')->with('posts', $posts)->with('latest_post', $latest_post);
+        return view('pages.welcome')
+            ->with('posts', $posts)
+            ->with('latest_post', $latest_post);
     }
 
     public function getAbout()
