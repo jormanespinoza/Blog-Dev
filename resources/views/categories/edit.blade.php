@@ -2,6 +2,10 @@
 
 @section('title', '| Edit Category')
 
+@section('stylesheets')
+    {!! Html::style('css/parsley.css') !!}
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -10,10 +14,10 @@
                     Edit Category
                 </div>
                 <div class="panel-body">
-                    {!! Form::model($category, ['route' => ['categories.update', $category->id]]) !!}
+                    {!! Form::model($category, ['route' => ['categories.update', $category->id], 'data-parsley-validate' => '']) !!}
                         {{ Form::hidden('_method', 'PUT') }}
                         <div class="form-group">
-                            {{ Form::text('name', null, ['class' => 'form-control', ]) }}
+                            {{ Form::text('name', null, ['class' => 'form-control', 'required' => '', 'maxlength' => '255']) }}
                         </div>
                         <div class="row">
                             <div class="col col-sm-6">

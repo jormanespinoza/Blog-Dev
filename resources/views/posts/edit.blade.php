@@ -2,6 +2,11 @@
 
 @section('title', '| Edit Blog Post')
 
+@section('stylesheets')
+    {!! Html::style('css/parsley.css') !!}
+    {!! Html::style('css/select2.min.css') !!}
+@endsection
+
 @section('content')
     <div class="row">
         {!! Form::model($post, ['route' => ['posts.update', $post->id]]) !!}
@@ -18,6 +23,10 @@
                 <div class="form-group">
                     {{ Form::label('category_id', 'Category:') }}
                     {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
+                </div>
+                <div class="form-group">
+                    {{ Form::label('tags', 'Tags:') }}
+                    {{ Form::select('tags[]', $tags, null, ['class' => 'form-control js-select2', 'multiple' => 'multiple']) }}
                 </div>
                 <div class="form-group">
                     {{ Form::label('body', 'Body:')}}
@@ -58,8 +67,15 @@
 @endsection
 
 @section('scripts')
+    {!! Html::script('js/parsley.min.js') !!}
+    {!! Html::script('js/select2.min.js') !!}
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'article-ckeditor' );
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-select2").select2();
+        });
     </script>
 @endsection

@@ -2,6 +2,10 @@
 
 @section('title', '| All Categories')
 
+@section('stylesheets')
+    {!! Html::style('css/parsley.css') !!}
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col col-md-8">
@@ -40,7 +44,7 @@
                 {!! $categories->links() !!}
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="well">
                 {!! Form::open(['route' => 'categories.store', 'data-parsley-validate' => '']) !!}
                     <h3>New Category</h3>

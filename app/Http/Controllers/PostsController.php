@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use App\Tag;
 use Session;
 
 class PostsController extends Controller
@@ -38,7 +39,10 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::orderBy('name', 'asc')->get();
-        return view('posts.create')->with('categories', $categories);
+        $tags = Tag::orderBy('name', 'asc')->get();
+        return view('posts.create')
+            ->with('categories', $categories)
+            ->with('tags', $tags);
     }
 
     /**
@@ -63,6 +67,8 @@ class PostsController extends Controller
         $post->category_id = $request->category_id;
         $post->body = $request->body;
         $post->save();
+
+        $post->tags()->sync($request->tags, false);
 
         // Redirect to another page
         Session::flash('success', 'The blog post was successfully saved.');
@@ -91,13 +97,21 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
         $categories = Category::orderBy('name', 'asc')->get();
-        $select_categories = [];
+        $fetch_categories = [];
         foreach($categories as $category) {
-            $select_categories[$category->id] = $category->name;
+            $fetch_categories[$category->id] = $category->name;
         }
+
+        $tags = Tag::orderBy('name', 'asc')->get();
+        $fetch_tags = [];
+        foreach($tags as $tag) {
+            $fetch_tags[$tag->id] = $tag->name;
+        }
+
         return view('posts.edit')
             ->with('post', $post)
-            ->with('categories', $select_categories);
+            ->with('categories', $fetch_categories)
+            ->with('tags', $fetch_tags);
     }
 
     /**
@@ -130,6 +144,8 @@ class PostsController extends Controller
         $post->category_id = $request->input('category_id');
         $post->body = $request->input('body');
         $post->save();
+
+        $post->tags()->sync($request->tags);
 
         // Redirect with flash data to posts.show
         Session::flash('success', 'This post was successfully saved.');

@@ -24,7 +24,7 @@ Route::get('/contact', 'PagesController@getContact');
 
 Route::resource('/posts', 'PostsController');
 
-Route::resource('categories', 'CategoryController', ['except' => ['create', 'show']]);
+Route::resource('categories', 'CategoryController', ['except' => 'create']);
 
 Route::resource('tags', 'TagController', ['except' => 'create']);
 

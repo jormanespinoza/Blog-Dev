@@ -25,7 +25,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::orderBy('name', 'asc')->paginate(10);
+        $tags = Tag::orderBy('created_at', 'asc')->paginate(10);
         return view('tags.index')->with('tags', $tags);
     }
 
@@ -57,7 +57,8 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        // code
+        $tag = Tag::find($id);
+        return view('tags.show')->with('tag', $tag);
     }
 
     /**
@@ -90,7 +91,7 @@ class TagController extends Controller
         $tag->save();
 
         Session::flash('success', 'The tag has been updated');
-        return redirect()->route('tags.index');
+        return redirect()->route('tags.show', $tag->id);
     }
 
     /**

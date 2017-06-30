@@ -4,6 +4,7 @@
 
 @section('stylesheets')
     {!! Html::style('css/parsley.css') !!}
+    {!! Html::style('css/select2.min.css') !!}
 @endsection
 
 @section('content')
@@ -29,6 +30,14 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    {{ Form::label('tags', 'Tags:') }}
+                    <select name="tags[]" class="form-control js-select2" multiple="multiple">
+                        @foreach($tags as $tag)
+                            <option value="{{ $tag-> id }}">{{ $tag->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     {{ Form::label('body', 'Body:') }}
                     {{ Form::textarea('body', null, array('id' => 'article-ckeditor', 'class' => 'form-control', 'required' => '')) }}
                 </div>
@@ -40,8 +49,14 @@
 
 @section('scripts')
     {!! Html::script('js/parsley.min.js') !!}
+    {!! Html::script('js/select2.min.js') !!}
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'article-ckeditor' );
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-select2").select2();
+        });
     </script>
 @endsection

@@ -7,6 +7,13 @@
         <div class="col-md-8">
             <h1>{{ $post->title }}</h1>
             <p class="lead">{!! $post->body !!}</p>
+            <hr>
+            <div class="tags">
+                @foreach($post->tags as $tag)
+                    <a href="{{ route('tags.show', $tag->id) }}" class="label label-default"><span>{{ $tag->name }}</span></a>
+                @endforeach
+            </div>
+                
         </div>
         <div class="col-md-4">
             <div class="well">

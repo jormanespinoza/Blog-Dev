@@ -8,7 +8,12 @@
             <h1>{{ $post->title}}</h1>
             <p>{!!  $post->body !!}</p>
             <hr>
-            <p>Posted In: {{ $post->category->name }}</p>
+            <p>
+                Posted In: {{ $post->category->name }} |
+                @foreach($post->tags->sortBy('name') as $tag)
+                    <span class="label label-default">{{ $tag->name }}</span>
+                @endforeach
+            </p>
         </div>
     </div>
 @endsection

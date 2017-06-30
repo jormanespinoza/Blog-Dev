@@ -2,6 +2,10 @@
 
 @section('title', '| All Tags')
 
+@section('stylesheets')
+    {!! Html::style('css/parsley.css') !!}
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col col-md-8">
@@ -14,6 +18,7 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Posts</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -21,14 +26,16 @@
                     @foreach($tags as $tag)
                         <tr>
                             <th>{{ $tag->id }}</th>
-                            <td>{{ $tag->name }}</td>
+                            <td><a href="{{ route('tags.show', $tag->id) }}">{{ $tag->name }}</a></td>
+                            <td>{{ $tag->posts->count() }}</td>
                             <td>
-                                <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{{ route('tags.show', $tag->id) }}" class="btn btn-default btn-xs">View</a>
+                                <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-default btn-xs">Edit</a>
                             </td>
                             <td>
                                 {!! Form::open(['route' => ['tags.destroy', $tag->id]]) !!}
                                     {{ Form::hidden('_method', 'DELETE') }}
-                                    {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
+                                    {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs'])}}
                                 {!! Form::close() !!}
                             </td>
                         </tr>
@@ -40,7 +47,7 @@
                 {!! $tags->links() !!}
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="well">
                 {!! Form::open(['route' => 'tags.store', 'data-parsley-validate' => '']) !!}
                     <h3>New Tag</h3>
