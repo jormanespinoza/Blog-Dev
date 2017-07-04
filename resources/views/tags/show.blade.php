@@ -9,9 +9,14 @@
                 {{ $tag->name}} Tag | <small>{{ $tag->posts()->count() }} Posts</small>
             </h1>
         </div>
-        <div class="col-md-2 col-md-offset-2">
-            <a href="{{ route('tags.index') }}" class="btn btn-default btn-h1-spacing">Back</a>
-            <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-primary btn-h1-spacing">Edit Tag</a>
+        <div class="col-md-2">
+            <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-primary btn-block btn-h1-spacing">Edit</a>
+        </div>
+        <div class="col-md-2">
+            {!! Form::open(['route' => ['tags.destroy', $tag->id]]) !!}
+                {{ Form::hidden('_method', 'DELETE') }}
+                {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-block btn-h1-spacing'])}}
+            {!! Form::close() !!}
         </div>
     </div>
     <hr>

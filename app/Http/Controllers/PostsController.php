@@ -161,6 +161,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        $post->tags()->detach();
         $post->delete();
 
         // Redirect with flash data to posts.show

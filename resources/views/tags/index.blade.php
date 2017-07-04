@@ -32,12 +32,6 @@
                                 <a href="{{ route('tags.show', $tag->id) }}" class="btn btn-default btn-xs">View</a>
                                 <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-default btn-xs">Edit</a>
                             </td>
-                            <td>
-                                {!! Form::open(['route' => ['tags.destroy', $tag->id]]) !!}
-                                    {{ Form::hidden('_method', 'DELETE') }}
-                                    {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs'])}}
-                                {!! Form::close() !!}
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>

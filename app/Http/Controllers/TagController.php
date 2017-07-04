@@ -103,6 +103,7 @@ class TagController extends Controller
     public function destroy($id)
     {
         $tag = Tag::find($id);
+        $tag->posts()->detach();
         $tag->delete();
 
         // Redirect with flash data to posts.show
