@@ -15,8 +15,7 @@ Route::get('/', 'PagesController@getIndex');
 
 Route::get('about', 'PagesController@getAbout');
 
-Route::get('blog/{slug}', ['uses' => 'BlogController@getSingle', 'as' => 'blog.single'])
-    ->where('slug', '[\w\d\-\_]+');
+Route::get('blog/{slug}', ['uses' => 'BlogController@getSingle', 'as' => 'blog.single'])->where('slug', '[\w\d\-\_]+');
 
 Route::get('blog', ['uses' => 'BlogController@getIndex', 'as' => 'blog.index']);
 
@@ -29,6 +28,8 @@ Route::resource('posts', 'PostsController');
 Route::resource('categories', 'CategoryController', ['except' => 'create']);
 
 Route::resource('tags', 'TagController', ['except' => 'create']);
+
+Route::post('comments/{post_id}', ['uses' => 'CommentsController@store', 'as' => 'comments.store']);
 
 // Authentication Routes
 

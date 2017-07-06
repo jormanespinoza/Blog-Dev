@@ -5,6 +5,14 @@
 @section('stylesheets')
     {!! Html::style('css/parsley.css') !!}
     {!! Html::style('css/select2.min.css') !!}
+    {{-- <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=nk4fz930u36fp80tw5lw70459r4sxn2hf62z6oaoukdms7ts"></script>
+    <script>
+        tinymce.init({ 
+            selector:'textarea',
+            plugins: 'link',
+            minibar: false
+        });
+    </script> --}}
 @endsection
 
 @section('content')
