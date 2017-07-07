@@ -23,20 +23,23 @@
 
     {{-- Comments Display --}}
 
-    @if(count($post->comments))
+    @if($post->comments()->count() > 0)
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <hr>
-                <h4>Comments</h4>
+                <h4 class="comment-title"><span class="glyphicon glyphicon-comment"></span> {{ $post->comments()->count() }} Comments</h4>
                 <hr>
                 @foreach($post->comments as $comment)
                     <div class="comment">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <p><strong>Name:</strong> {{ $comment->name }}</p>
-                                <p><strong>Comment:</strong> {{ $comment->comment }}</p>
-                                <p><strong>Posted:</strong> {{ $comment->created_at->diffForHumans() }}</p>
+                        <div class="author-info">
+                            <img src="{{ "https://www.gravatar.com/avatar/" . md5(strtolower(trim($comment->email))) . "?d=retro" }}" class="author-image" alt="avatar">
+                            <div class="author-name"> 
+                                <h4>{{ $comment->name }}</h4>
+                                <p class="author-date">{{ $comment->created_at->diffForHumans() }}</p>
                             </div>
+                        </div>
+                        <div class="comment-content">
+                            {{ $comment->comment }}
                         </div>
                     </div>
                 @endforeach
@@ -80,8 +83,4 @@
 
 @section('scripts')
     {!! Html::script('js/parsley.min.js') !!}
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'article-ckeditor' );
-    </script>
 @endsection
