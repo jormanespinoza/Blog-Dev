@@ -16,7 +16,7 @@
 .author-name {
     float: left;
     margin: 5px;
-    margin-left: 15;
+    margin-left: 25px;
 }
 
 .author-name>h4 {
@@ -31,11 +31,15 @@
 
 .comment-content {
     clear: both;
-    margin-left: 55px;
+    margin-left: 75px;
     font-size: 16px;
     line-height: 1.3em;
 }
 
 .comment-title>span {
     margin-right: 50px;
+}
+
+#backend-comments {
+    margin-top: 50px;
 }

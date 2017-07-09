@@ -13,7 +13,35 @@
                     <a href="{{ route('tags.show', $tag->id) }}" class="label label-default"><span>{{ $tag->name }}</span></a>
                 @endforeach
             </div>
-                
+
+            <div id="backend-comments">
+                <h3>Comments <small>{{ $post->comments()->count() }} totol</small></h3>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Comment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($post->comments as $comment)
+                            <tr>
+                                <td>{{ $comment->name }}</td>
+                                <td>{{ $comment->email }}</td>
+                                <td>{{ substr($comment->comment, 0, 200) }} {{ strlen($comment->comment) > 200 ? '...' : '' }}</td>
+                                <td>
+                                    <a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-primary btn-xs" title=""><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a href="{{ route('comments.delete', $comment->id) }}" class="btn btn-danger btn-xs" title="Delete"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                       
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="col-md-4">
             <div class="well">

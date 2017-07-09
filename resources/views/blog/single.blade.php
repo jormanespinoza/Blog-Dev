@@ -11,7 +11,6 @@
         <div class="col-md-8 col-md-offset-2">
             <h1>{{ $post->title}}</h1>
             <p>{!!  $post->body !!}</p>
-            <hr>
             <p>
                 Posted In: {{ $post->category->name }} |
                 @foreach($post->tags->sortBy('name') as $tag)
@@ -45,8 +44,6 @@
                 @endforeach
             </div>
         </div>
-    @else
-        <p>Add the first comment</p>
     @endif
 
     <div class="row">
@@ -71,7 +68,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             {{ Form::label('comment', 'Comment:') }}
-                            {{ Form::textarea('comment', null, ['class' => 'form-control', 'rows' => '5', 'required' => '', 'minlength' => '5','maxlength' => '255']) }}
+                            {{ Form::textarea('comment', null, ['class' => 'form-control', 'rows' => '5', 'required' => '', 'minlength' => '5','maxlength' => '2000']) }}
                         </div>
                         {{ Form::submit('Add Comment', ['class' => 'form-control btn btn-success btn-block']) }}
                     </div>

@@ -10,23 +10,13 @@ use Session;
 class CommentsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // code
+        $this->middleware('auth')->except('store');
     }
 
     /**
@@ -59,17 +49,6 @@ class CommentsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -77,7 +56,8 @@ class CommentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::find($id);
+        return view('comments.edit')->with('comment', $comment);
     }
 
     /**
@@ -89,7 +69,20 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+
+        $this->validate($request, ['comment' => 'required|min:5|max:2000']);
+
+        $comment->comment = $request->input('comment');
+        $comment->save();
+
+        Session::flash('success', 'The comment was succesfully updated');
+        return redirect()->route('posts.show', $comment->post->id);
+    }
+
+    public function delete($id) {
+        $comment = Comment::find($id);
+        return view('comments.delete')->with('comment', $comment);
     }
 
     /**
@@ -100,6 +93,11 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+        $post_id = $comment->post->id;
+        $comment->delete();
+
+        Session::flash('success', 'The comment was successfully deleted');
+        return redirect()->route('posts.show', $post_id);
     }
 }
