@@ -9,6 +9,7 @@ use App\Tag;
 use Session;
 use Purifier;
 use Image;
+use Storage;
 
 class PostsController extends Controller
 {
@@ -59,7 +60,8 @@ class PostsController extends Controller
         $this->validate($request, array(
             'title' => 'required|max:255',
             'slug' => 'required|alpha_dash|min:4|max:255|unique:posts,slug',
-            'body' => 'required'
+            'body' => 'required',
+            'featured_image' => 'sometimes|image|mimes:jpeg,jpg,bmp,png,gif'
         ));
 
         // store the data
@@ -139,25 +141,34 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         // Validate the data
-        $post = Post::find($id);
-        // Checkif slug has changed
-        if($request->input('slug') != $post->slug) {
-            $this->validate($request, [
-                'title' => 'required|max:255',
-                'slug' => 'required|alpha_dash|min:4|max:255|unique:posts,slug',
-                'body' => 'required'
-            ]);
-        }else {
-            $this->validate($request, [
-                'title' => 'required|max:255',
-                'body' => 'required'
-            ]);
-        }
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'slug' => "required|alpha_dash|min:4|max:255|unique:posts,slug,$id",
+            'body' => 'required',
+            'featured_image' => 'image'
+        ]);
+
         // Store the data
+        $post = Post::find($id);
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
         $post->category_id = $request->input('category_id');
         $post->body = Purifier::clean($request->input('body'));
+
+        if($request->hasFile('featured_image')) {
+            // add new image
+            $image = $request->file('featured_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/featured/' . $filename);
+            Image::make($image)->resize(800, 400)->save($location);
+            $oldFilename = $post->image;
+
+            // update image
+            $post->image = $filename;
+
+            // delete old image
+            Storage::delete($oldFilename);
+        }
 
         $post->save();
         $post->tags()->sync($request->tags);
@@ -177,6 +188,12 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
         $post->tags()->detach();
+
+        if($post->image != null) {
+            // delete image
+            Storage::delete($post->image);
+        }
+
         $post->delete();
 
         // Redirect with flash data to posts.show

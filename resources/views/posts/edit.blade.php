@@ -17,7 +17,7 @@
 
 @section('content')
     <div class="row">
-        {!! Form::model($post, ['route' => ['posts.update', $post->id]]) !!}
+        {!! Form::model($post, ['route' => ['posts.update', $post->id], 'files' => true]) !!}
             {{ Form::hidden('_method', 'PUT') }}
             <div class="col-md-8">
                 <div class="form-group">
@@ -35,6 +35,10 @@
                 <div class="form-group">
                     {{ Form::label('tags', 'Tags:') }}
                     {{ Form::select('tags[]', $tags, null, ['class' => 'form-control js-select2', 'multiple' => 'multiple']) }}
+                </div>
+                <div class="form-group">
+                    {{ Form::label('featured_image', 'Update Featured Image:') }}
+                    {{ Form::file('featured_image', ['class' => 'form-control']) }}
                 </div>
                 <div class="form-group">
                     {{ Form::label('body', 'Body:')}}
