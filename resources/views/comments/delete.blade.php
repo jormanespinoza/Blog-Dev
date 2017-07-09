@@ -7,7 +7,7 @@
     <div class="row">
         <col-md-8 class="col-md-8 col-md-offset-2">
             <h2>Are you sure you want to delete this comment?</h2>
-            <div class="well well-lg">
+            <div class="well">
                 <strong>Name:</strong> {{ $comment->name }}<br>
                 <strong>Email:</strong> {{ $comment->email }}<br>
                 <strong>Comment:</strong> 

@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('comment', 'Comment:')}}
-                    {{ Form::text('comment', null, ['class' => 'form-control', 'required' => '', 'minlength' => '5','maxlength' => '255']) }}
+                    {{ Form::textarea('comment', null, ['class' => 'form-control', 'required' => '', 'minlength' => '5','maxlength' => '255', 'row' => '5']) }}
                 </div>
                 
                 {{ Form::submit('Update Comment', ['class' => 'btn btn-block btn-success'])}}

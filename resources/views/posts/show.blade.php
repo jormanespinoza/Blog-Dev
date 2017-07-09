@@ -32,7 +32,7 @@
                                 <td>{{ $comment->name }}</td>
                                 <td>{{ $comment->email }}</td>
                                 <td>{{ substr($comment->comment, 0, 200) }} {{ strlen($comment->comment) > 200 ? '...' : '' }}</td>
-                                <td>
+                                <td style="width: 70px;">
                                     <a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-primary btn-xs" title=""><span class="glyphicon glyphicon-pencil"></span></a>
                                     <a href="{{ route('comments.delete', $comment->id) }}" class="btn btn-danger btn-xs" title="Delete"><span class="glyphicon glyphicon-remove-circle"></span></a>
                                 </td>

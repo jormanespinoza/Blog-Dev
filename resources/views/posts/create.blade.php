@@ -10,7 +10,7 @@
         tinymce.init({ 
             selector:'textarea',
             plugins: 'link',
-            minibar: false
+            menubar: false
         });
     </script> --}}
 @endsection
