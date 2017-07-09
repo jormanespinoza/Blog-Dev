@@ -8,6 +8,7 @@ use App\Category;
 use App\Tag;
 use Session;
 use Purifier;
+use Image;
 
 class PostsController extends Controller
 {
@@ -54,24 +55,37 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the data
+        // validate the data
         $this->validate($request, array(
             'title' => 'required|max:255',
-            'slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
+            'slug' => 'required|alpha_dash|min:4|max:255|unique:posts,slug',
             'body' => 'required'
         ));
 
-        // Store the data
+        // store the data
         $post = new Post;
         $post->title = $request->title;
         $post->slug = $request->slug;
         $post->category_id = $request->category_id;
         $post->body = Purifier::clean($request->body);
+
+        // save image
+        if($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/featured/' . $filename);
+            Image::make($image)->resize(800, 400)->save($location);
+            // save image into DB
+            $post->image = $filename;
+        }
+
+        //save post
         $post->save();
 
+        // sync post/tags relationship
         $post->tags()->sync($request->tags, false);
 
-        // Redirect to another page
+        // redirect to another page
         Session::flash('success', 'The blog post was successfully saved.');
         return redirect()->route('posts.show', $post->id);
     }
@@ -130,7 +144,7 @@ class PostsController extends Controller
         if($request->input('slug') != $post->slug) {
             $this->validate($request, [
                 'title' => 'required|max:255',
-                'slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
+                'slug' => 'required|alpha_dash|min:4|max:255|unique:posts,slug',
                 'body' => 'required'
             ]);
         }else {
@@ -144,8 +158,8 @@ class PostsController extends Controller
         $post->slug = $request->input('slug');
         $post->category_id = $request->input('category_id');
         $post->body = Purifier::clean($request->input('body'));
-        $post->save();
 
+        $post->save();
         $post->tags()->sync($request->tags);
 
         // Redirect with flash data to posts.show

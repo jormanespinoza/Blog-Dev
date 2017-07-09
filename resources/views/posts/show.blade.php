@@ -5,6 +5,9 @@
 @section('content')
     <div class="row">
         <div class="col-md-8">
+            @if($post->image != null)
+                <img src="{{ asset('images/featured/' . $post->image) }}" alt="Featured Image" class="img-thumbnail">
+            @endif
             <h1>{{ $post->title }}</h1>
             <p class="lead">{!! $post->body !!}</p>
             <hr>

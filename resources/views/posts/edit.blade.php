@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group">
                     {{ Form::label('slug', 'Slug:') }}
-                    {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '', 'minlength' => '5','maxlength' => '255')) }}
+                    {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '', 'minlength' => '4','maxlength' => '255')) }}
                 </div>
                 <div class="form-group">
                     {{ Form::label('category_id', 'Category:') }}

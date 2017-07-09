@@ -17,6 +17,9 @@
             @if(count($posts) > 0)
                 @foreach($posts as $post)
                     <div class="post">
+                        @if($post->image != null)
+                            <img src="{{ asset('images/featured/' . $post->image) }}" alt="Featured Image" class="img-thumbnail">
+                        @endif
                         <h3>{{ substr($post->title, 0,50 ) }} {{ strlen($post->title) > 50 ? '...' : '' }}</h3>
                         <p>{{ substr(strip_tags($post->body), 0, 300) }} {{ strlen(strip_tags($post->body)) > 300 ? '...' : '' }}</p>
                         <p>
