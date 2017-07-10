@@ -61,7 +61,7 @@ class PostsController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|alpha_dash|min:4|max:255|unique:posts,slug',
             'body' => 'required',
-            'featured_image' => 'sometimes|image|mimes:jpeg,jpg,bmp,png,gif'
+            'featured_image' => 'sometimes|image'
         ));
 
         // store the data
